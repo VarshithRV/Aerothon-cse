@@ -1,4 +1,4 @@
-<include a schematic diagram of our dorne>
+
 # Aerothon-cse
   
 ## Overview : 
