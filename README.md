@@ -126,7 +126,7 @@ R C Controlled :
 All the features of the drone can be accomplished by a applying closed loop control system.
 <the main control system of the RC mode : >
 In RC mode, the basic degrees of freedom can be accomplished where the feedback and the correction of the motor speed values can be provided by the end user (pilot) where he controls the drone by flying it in a FPV mode. <br><br>
-![typical control system for RC](https://ibb.co/Xt6YXNk)<br>
+![typical control system for RC]("Rc control system.png")<br>
 However due to the restraints provided by the Aerothon Competition, we find it best to have an autonomous mode **Altitude hold**, when it is switched ON, the drone will autonomously stay in the same altitude while executing the actions the pilot provides in all the other axis. We would also like to have another switchable autonomous **hover** mode for the drone which will help us performing the most important objective of the flying competition which is **Delivery of the payload** as close to the Bull's eye as possible.<br><br> 
 For this we might need to calculate the possible trajectory of the projectile and the as there are points alloted for dropping as close to the bull's eye as possible, we find it best to automate the Dropping process too and eyeball it. <br> <br>
 As we approach the Bull's eye in the RC mode, we will hover over its approximated position and switch to the autonmous **Delivery Process**, after the payload is delivered or dropped at the height of 20m over the Bull's eye, we switch back to RC mode and return to base following the objective of the PHASE II flying competition.
