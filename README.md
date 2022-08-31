@@ -126,6 +126,6 @@ This is the use of GPS to create a virtual boundary that triggers a predetermine
 
 <br>
 
-![Rc-control-system.png](https://postimg.cc/sMb2KM70)
+<img src="https://postimg.cc/sMb2KM70">
 
 <br>
