@@ -56,6 +56,8 @@ We analyzed some of top drone controllers of the market by gathering information
 
 ***Based on the above data, we've decided to use Pixhawk along with PX4***
 
+## Software Configuration : 
+
 ### We are going to build a drone which can switch between autonomous and RC mode
 The switching of the drone modes is facilitated by the Pixhawk flight controller.
 Our drone will have some features it can execute in the RC mode and some in the autonomous and some of the features are going to be common for both the modes like **Altitude hold**, **Fail - safe** and **Geofencing**, In the next section of the document, we dive deeper into the different control systems and algorithms of the following features.
@@ -63,6 +65,10 @@ Our drone will have some features it can execute in the RC mode and some in the 
 All of the features we are going to implement is either an inbuilt feature in the pixhawk's px4 firmware or one's that we are going to Develop using the Dronekit library.
 <br>
 Both the methods abstract the individual speed control of the motors using the motor mixing algorithm and have the PID controllers which will take care of all the differential equation involved and gives output to the **mma** based on the command and the state of the drone.
+<br><br>
+A typical mma : <br>
+<img src="mma.png" alt="mma">
+
 
 # Features of drone
 R C Controlled : 
@@ -125,9 +131,27 @@ R C Controlled :
 ## Control systems of the features : 
 All the features of the drone can be accomplished by a applying closed loop control system.
 <the main control system of the RC mode : >
-In RC mode, the basic degrees of freedom can be accomplished where the feedback and the correction of the motor speed values can be provided by the end user (pilot) where he controls the drone by flying it in a FPV mode. <br><br>
-<img src="mma.png" alt="Typical RC control system">
+In RC mode, the basic degrees of freedom can be accomplished where the feedback and the correction of the motor speed values can be provided by the end user (pilot) where he controls the drone by flying it in FPV mode. <br><br>
+
+Control system of RC :
+<img src = "Rccontrolsystem.png"> <br> taken from https://www.youtube.com/watch?v=GK1t8YIvGM8.
 <br>
-However due to the restraints provided by the Aerothon Competition, we find it best to have an autonomous mode **Altitude hold**, when it is switched ON, the drone will autonomously stay in the same altitude while executing the actions the pilot provides in all the other axis. We would also like to have another switchable autonomous **hover** mode for the drone which will help us performing the most important objective of the flying competition which is **Delivery of the payload** as close to the Bull's eye as possible.<br><br> 
-For this we might need to calculate the possible trajectory of the projectile and the as there are points alloted for dropping as close to the bull's eye as possible, we find it best to automate the Dropping process too and eyeball it. <br> <br>
+We can observe here that the input is from the user, so we have no need of PID controllers.
+
+However due to the restraints provided by the Aerothon Competition, we find it best to have an autonomous mode **Altitude hold**, when it is switched ON, the drone will autonomously stay in the same altitude while executing the actions the pilot provides in all the other axis. <br>
+<img src = "thrust-altitudehold.png" alt = "Thrust alg for altitude hold">
+
+<br>
+And Implementing the geofencing : <br>
+<img src = "geofence.png" alt = "geofence">
+
+We would also like to have another switchable autonomous **hover** mode for the drone which will help us performing the most important objective of the flying competition which is **Delivery of the payload** as close to the Bull's eye as possible.<br><br>
+
+
+For this we might need to calculate the possible trajectory of the projectile and the as there are points alloted for dropping as close to the bull's eye as possible, we find it best to automate the Dropping process too rather than eyeball it. <br> <br>
+
+
 As we approach the Bull's eye in the RC mode, we will hover over its approximated position and switch to the autonmous **Delivery Process**, after the payload is delivered or dropped at the height of 20m over the Bull's eye, we switch back to RC mode and return to base following the objective of the PHASE II flying competition.
+
+# Summary : 
+We have finalized on the hardware and the software configuration of our drone based on the advantages it provides for our objecive, we are designing algorithms for some of the features not provided in the px4 kit and learning the algorithms which are provided in it so that we can tailor them to our need.
