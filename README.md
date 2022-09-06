@@ -133,7 +133,7 @@ All the features of the drone can be accomplished by a applying closed loop cont
 <the main control system of the RC mode : >
 In RC mode, the basic degrees of freedom can be accomplished where the feedback and the correction of the motor speed values can be provided by the end user (pilot) where he controls the drone by flying it in FPV mode. <br><br>
 
-Control system of RC :
+Control system of RC : <br>
 <a href="https://ibb.co/7zBnT1t"><img src="https://i.ibb.co/thnqNJp/Rccontrolsystem.png" alt="Rccontrolsystem" border="0"></a> <br> taken from https://www.youtube.com/watch?v=GK1t8YIvGM8.
 <br>
 We can observe here that the input is from the user, so we have no need of PID controllers.
