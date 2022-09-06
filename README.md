@@ -1,10 +1,10 @@
+
 # Aerothon-cse
+  
 ## Overview : 
 
 We, the Control System team, work on the simulation and the software system that allows our quadcopter to be controlled remotely and operable autonomously. 
 Our mission is to provide a robust, reliable and modular software elements to implement different functions of our drone that enables basic flight, fail safes, payload delivery and autonomy. Using concepts of we tailor each of the algorithms to achieve stable and time efficient flight.
-
-
 
 
 ## Hardware and Firmware : 
@@ -56,5 +56,102 @@ We analyzed some of top drone controllers of the market by gathering information
 
 ***Based on the above data, we've decided to use Pixhawk along with PX4***
 
+## Software Configuration : 
+
+### We are going to build a drone which can switch between autonomous and RC mode
+The switching of the drone modes is facilitated by the Pixhawk flight controller.
+Our drone will have some features it can execute in the RC mode and some in the autonomous and some of the features are going to be common for both the modes like **Altitude hold**, **Fail - safe** and **Geofencing**, In the next section of the document, we dive deeper into the different control systems and algorithms of the following features.
+<br>
+All of the features we are going to implement is either an inbuilt feature in the pixhawk's px4 firmware or one's that we are going to Develop using the Dronekit library.
+<br>
+Both the methods abstract the individual speed control of the motors using the motor mixing algorithm and have the PID controllers which will take care of all the differential equation involved and gives output to the **mma** based on the command and the state of the drone.
+<br><br>
+A typical mma : <br>
+<img src="mma.png" alt="mma">
 
 
+# Features of drone
+R C Controlled : 
+
+1. Throttle
+2. Pitch 
+3. Roll
+4. Yaw
+5. Altitude hold
+6. Hover
+7. Geographical fence
+
+<br>
+
+> **1. Throttle**
+
+<br>
+
+>Throttle is just a upward (or downward) movment of quadcopter which can be achived by increasing (or decreasing) all the propeller speeds by the same amount. It leads to a vertical force with respect to body-fixed frame which raises or lowers the quad-rotor.
+
+<br>
+
+> **2. Pitch**
+
+<br>
+
+>The second dimension an aircraft can move in is called “pitch.” The pitch means the drone tilts upwards or downwards based on its orientation and the location of its nose. A downwards tilt will move the aircraft (drone in this case) in a forwards motion, while an upwards tilt will move it backwards.
+
+<br>
+
+> **3. Yaw**
+
+<br>
+
+>“yaw” refers to the direction the front of your drone (or even a plane or car) is facing when rotating either clockwise or counterclockwise (or left and right if you prefer) on its vertical axis.
+<br>
+
+> **4. Roll**
+
+<br>
+>"Roll" Refers to the rotation of the drone along the axis that connects head to tail of the drone.
+ <br>
+
+> **5. Hover**
+<br>
+
+>two of a drone's four rotors move clockwise, while the other two move counterclockwise, ensuring that the sideways momentum of the drone remains balanced.
+
+<br>
+
+ > **6. Geographical fence**
+
+<br>
+
+>This is the use of GPS to create a virtual boundary that triggers a predetermined response when the drone flies into — or out of — a particular area. If the drone flies towards a “fenced” or restricted area, it will stop mid-flight. If you try to take off from a restricted area, the drone will not start up at all. Geofences can be placed to keep drones out of certain fields, from flying over a particular building, and prevent them from entering into “no fly zones.”
+
+<br>
+<br>
+
+## Control systems of the features : 
+All the features of the drone can be accomplished by a applying closed loop control system.
+<the main control system of the RC mode : >
+In RC mode, the basic degrees of freedom can be accomplished where the feedback and the correction of the motor speed values can be provided by the end user (pilot) where he controls the drone by flying it in FPV mode. <br><br>
+
+Control system of RC :
+<img src = "Rccontrolsystem.png"> <br> taken from https://www.youtube.com/watch?v=GK1t8YIvGM8.
+<br>
+We can observe here that the input is from the user, so we have no need of PID controllers.
+
+However due to the restraints provided by the Aerothon Competition, we find it best to have an autonomous mode **Altitude hold**, when it is switched ON, the drone will autonomously stay in the same altitude while executing the actions the pilot provides in all the other axis. <br>
+<img src = "thrust-altitudehold.png" alt = "Thrust alg for altitude hold">
+
+<br>
+And Implementing the geofencing : <br>
+<img src = "geofence.png" alt = "geofence">
+
+We would also like to have another switchable autonomous **hover** mode for the drone which will help us performing the most important objective of the flying competition which is **Delivery of the payload** as close to the Bull's eye as possible.<br><br>
+
+
+For this we might need to calculate the possible trajectory of the projectile and the as there are points alloted for dropping as close to the bull's eye as possible, we find it best to automate the Dropping process too rather than eyeball it. <br> <br>
+
+
+As we approach the Bull's eye in the RC mode, we will hover over its approximated position and switch to the autonmous **Delivery Process**, after the payload is delivered or dropped at the height of 20m over the Bull's eye, we switch back to RC mode and return to base following the objective of the PHASE II flying competition.
+
+# Summary : 
+We have finalized on the hardware and the software configuration of our drone based on the advantages it provides for our objecive, we are designing algorithms for some of the features not provided in the px4 kit and learning the algorithms which are provided in it so that we can tailor them to our need.
